@@ -11,5 +11,6 @@ It made it easy for us to format everything and easy for us to compare them thro
 These are the links (sources) for our visualizations:
 
 https://altair-viz.github.io
-https://nicholasvadivelu.com/2021/01/18/interactive-altair/?utm_source=chatgpt.com
+Interactive Data Visualization with Altair 18 Jan 2021](https://nicholasvadivelu.com/2021/01/18/interactive-altair/)
 https://docs.streamlit.io/develop/api-reference/charts/st.altair_chart
+

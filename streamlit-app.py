@@ -2,11 +2,12 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-st.set_page_config(layout="wide", page_title="CT Affordability Dashboard")
+st.set_page_config(layout="wide", page_title="CT Affordability Dashboard") # here i set up the page layout.
+# here's title for the dashboard
 st.title("Connecticut Affordability Dashboard (2020–2024)")
 
-df = pd.read_csv("data/cleaned_ct_data.csv")
-df["Year"] = df["Year"].astype(int)
+df = pd.read_csv("data/cleaned_ct_data.csv") # loading the cleaned CSV data
+df["Year"] = df["Year"].astype(int) 
 
 st.sidebar.header("Controls")
 year_min, year_max = int(df.Year.min()), int(df.Year.max())
@@ -17,20 +18,24 @@ smoothing = st.sidebar.selectbox("Rolling window (years)", [1,2,3], index=0)
 
 df = df[(df["Year"] >= selected_range[0]) & (df["Year"] <= selected_range[1])]
 
-if show_raw:
+if show_raw: # this was done to show the dataset if wanted. 
     st.subheader("Raw data")
     st.write(df)
 
 df["Affordability"] = df["HomePriceIndex"] / df["MedianIncome"]
 
 if smoothing > 1:
-    df["MedianIncome_roll"] = df["MedianIncome"].rolling(smoothing).mean()
+    df["MedianIncome_roll"] = df["MedianIncome"].rolling(smoothing).mean() 
     df["HomePriceIndex_roll"] = df["HomePriceIndex"].rolling(smoothing).mean()
     df["Affordability_roll"] = df["Affordability"].rolling(smoothing).mean()
 else:
     df["MedianIncome_roll"] = df["MedianIncome"]
     df["HomePriceIndex_roll"] = df["HomePriceIndex"]
     df["Affordability_roll"] = df["Affordability"]
+    
+# using smoothing to make the lines easier to read and trends clearer. 
+# I was having issues with the patterns not looking as i wanted them to,
+# so this helped me with that issue. 
 
 st.subheader("Median Income Over Time")
 st.altair_chart(alt.Chart(df).mark_line(point=True).encode(x="Year:O", y="MedianIncome_roll:Q", tooltip=["Year","MedianIncome"]).properties(height=300), use_container_width=True)
@@ -70,6 +75,6 @@ if "Income_YoY" in df.columns:
     st.write("Year with largest Income YoY increase:", int(largest_income["Year"]), f"{largest_income['Income_YoY']:.2%}")
 
 st.subheader("Inflation-Adjusted Median Income")
-inflation_rate = 0.03
+inflation_rate = 0.03 # I used 0.03 because it's just an estimated percentage. 
 df["Income_Real"] = df["MedianIncome"] / ((1+inflation_rate)**(df["Year"]-2020))
 st.altair_chart(alt.Chart(df).mark_line(point=True).encode(x="Year:O", y=alt.Y("Income_Real:Q", scale=alt.Scale(domain=[40000, df["Income_Real"].max()])), tooltip=["Year","Income_Real"]).properties(height=300), use_container_width=True)

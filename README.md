@@ -11,6 +11,16 @@ It made it easy for us to format everything and easy for us to compare them thro
 These are the links (sources) for our visualizations:
 
 https://altair-viz.github.io
-Interactive Data Visualization with Altair 18 Jan 2021](https://nicholasvadivelu.com/2021/01/18/interactive-altair/)
+https://nicholasvadivelu.com/2021/01/18/interactive-altair/
 https://docs.streamlit.io/develop/api-reference/charts/st.altair_chart
+
+Questions to answer: 
+1. How have median household incomes in Connecticut changed from 2020 to 2024?
+2. How have housing prices in Connecticut changed from 2020 to 2024?
+3. How does the rate of increase in housing prices compare to the growth of household income?
+4. How has inflation affected the real value of incomes in Connecticut?
+5. Which quarters/years saw the largest jump in housing prices or incomes?
+6. Do housing prices and incomes move together, or do they become more disconnected over time?
+7. How has housing affordability changed over time when measured by the Home Price Index relative to Median Income?
+
 
